@@ -62,3 +62,8 @@ End end([](){ /* code */ });
 ( 昔 VC++ で std::function で書いたときは大丈夫だった )
 
 だが、template はどうせ `functional` の中で使われているし、この仕組み自体はどっちにしてもヘッダファイルの中に書かねばならないので、結果的に #include を減らせるこちらの方がよさそうだ。
+
+References
+----------
++ [defer っぽいもの - Qiita](https://qiita.com/SaitoAtsushi/items/afb428d0834ca4dda1e5)
++ [Go の defer っぽいものを C++ でやってみる遊び](https://gist.github.com/SaitoAtsushi/c40f4facd5754502136010fdf14228d0)
