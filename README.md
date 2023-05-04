@@ -9,7 +9,9 @@ main.cpp
 #include "defer.h"
 
 int main(){
-    End end = [](){ std::cout << "defer code" << std::endl; };
+    End end = [](){ std::cout << "defer code(1)" << std::endl; };
+    defer [](){ std::cout << "defer code(2)" << std::endl; };
+    defer [](){ std::cout << "defer code(3)" << std::endl; };
 
     std::cout << "main code" << std::endl;
     return 0;
@@ -21,7 +23,9 @@ Output
 
 ```./a|
 main code
-defer code
+defer code(3)
+defer code(2)
+defer code(1)
 ```
 
 
@@ -36,6 +40,10 @@ public:
     End(const T &f_) : f(f_){}
     ~End(){ f(); }
 };
+
+#define CONCATINATE_IMPLEMENT(x,y) x ## y
+#define CONCATINATE(x,y) CONCATINATE_IMPLEMENT(x,y)
+#define defer End CONCATINATE(defer,__LINE__)=
 ```
 
 template にしなくても、`T` を `std::function<void(void)>` とすれば基本等価だが、そうすると g++ では
