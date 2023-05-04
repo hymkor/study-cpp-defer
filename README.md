@@ -1,5 +1,5 @@
-Tny defer for C++ by destructor
-===============================
+Simple `defer` for C++ like golang by destructor
+================================================
 
 main.cpp
 --------
