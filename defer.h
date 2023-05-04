@@ -1,8 +1,7 @@
-#include <functional>
-
+template <typename T>
 class End {
-    std::function<void(void)> f;
+    const T f;
 public:
-    End(std::function<void(void)> f_) : f(f_){}
+    End(const T &f_) : f(f_){}
     ~End(){ f(); }
 };
