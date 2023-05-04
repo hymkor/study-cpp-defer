@@ -9,9 +9,7 @@ main.cpp
 #include "defer.h"
 
 int main(){
-    // VC++ だと end = [](){...} という書き方も出来たが、
-    // g++ ではコンパイルエラーになった。
-    End end([](){ std::cout << "defer code" << std::endl; });
+    End end = [](){ std::cout << "defer code" << std::endl; };
 
     std::cout << "main code" << std::endl;
     return 0;
@@ -31,12 +29,28 @@ defer.h
 -------
 
 ```defer.h
-#include <functional>
-
+template <typename T>
 class End {
-    std::function<void(void)> f;
+    const T f;
 public:
-    End(std::function<void(void)> f_) : f(f_){}
+    End(const T &f_) : f(f_){}
     ~End(){ f(); }
 };
 ```
+
+template にしなくても、`T` を `std::function<void(void)>` とすれば基本等価だが、そうすると g++ では
+
+```cpp
+End end = [](){ /* code */ };
+```
+
+という書き方がエラーになり
+
+```cpp
+End end([](){ /* code */ });
+```
+
+と書かなくてはいけなくなる。
+( 昔 VC++ で std::function で書いたときは大丈夫だった )
+
+だが、template はどうせ `functional` の中で使われているし、この仕組み自体はどっちにしてもヘッダファイルの中に書かねばならないので、結果的に #include を減らせるこちらの方がよさそうだ。
