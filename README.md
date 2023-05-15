@@ -58,7 +58,7 @@ deferClass end = [](){ /* code */ };
 という書き方がエラーになり
 
 ```cpp
-End end([](){ /* code */ });
+deferClass end([](){ /* code */ });
 ```
 
 と書かなくてはいけなくなる。
