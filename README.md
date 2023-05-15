@@ -9,9 +9,9 @@ main.cpp
 #include "defer.h"
 
 int main(){
-    End end = [](){ std::cout << "defer code(1)" << std::endl; };
+    deferClass end = [](){ std::cout << "defer code(0)" << std::endl; };
+    defer [](){ std::cout << "defer code(1)" << std::endl; };
     defer [](){ std::cout << "defer code(2)" << std::endl; };
-    defer [](){ std::cout << "defer code(3)" << std::endl; };
 
     std::cout << "main code" << std::endl;
     return 0;
@@ -23,9 +23,9 @@ Output
 
 ```./a|
 main code
-defer code(3)
 defer code(2)
 defer code(1)
+defer code(0)
 ```
 
 
@@ -34,22 +34,25 @@ defer.h
 
 ```defer.h
 template <typename T>
-class End {
+class deferClass {
     const T f;
 public:
-    End(const T &f_) : f(f_){}
-    ~End(){ f(); }
+    deferClass(const T &f_) : f(f_){}
+    ~deferClass(){ f(); }
 };
 
 #define CONCATINATE_IMPLEMENT(x,y) x ## y
 #define CONCATINATE(x,y) CONCATINATE_IMPLEMENT(x,y)
-#define defer End CONCATINATE(defer,__LINE__)=
+#define defer deferClass CONCATINATE(defer,__LINE__)=
 ```
+
+余談
+----
 
 template にしなくても、`T` を `std::function<void(void)>` とすれば基本等価だが、そうすると g++ では
 
 ```cpp
-End end = [](){ /* code */ };
+deferClass end = [](){ /* code */ };
 ```
 
 という書き方がエラーになり

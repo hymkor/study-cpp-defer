@@ -1,11 +1,11 @@
 template <typename T>
-class End {
+class deferClass {
     const T f;
 public:
-    End(const T &f_) : f(f_){}
-    ~End(){ f(); }
+    deferClass(const T &f_) : f(f_){}
+    ~deferClass(){ f(); }
 };
 
 #define CONCATINATE_IMPLEMENT(x,y) x ## y
 #define CONCATINATE(x,y) CONCATINATE_IMPLEMENT(x,y)
-#define defer End CONCATINATE(defer,__LINE__)=
+#define defer deferClass CONCATINATE(defer,__LINE__)=
