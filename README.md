@@ -70,3 +70,15 @@ References
 ----------
 + [defer っぽいもの - Qiita](https://qiita.com/SaitoAtsushi/items/afb428d0834ca4dda1e5)
 + [Go の defer っぽいものを C++ でやってみる遊び](https://gist.github.com/SaitoAtsushi/c40f4facd5754502136010fdf14228d0)
++ [scope_exitの実装 - きままにブログ](https://staryoshi.hatenablog.com/entry/2015/10/28/101841)
+
+標準 C++ でも検討されていたが、まだ正式に入っていない模様[^StdCppDefer]
+
+[^StdCppDefer]: https://twitter.com/shirouzu/status/1483072158758621187
+
++ [std::experimental::scope_exit - cppreference.com](https://en.cppreference.com/w/cpp/experimental/scope_exit)
++ [letsboost::scope_exit](http://www.kmonos.net/alang/boost/classes/scopeexit.html) (boostライブラリ)
+
+C++ ではなく、C言語(C23) の方に先に defer が入るかもしれない
+
++ [A simple defer feature for C](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2895.htm) ( [新山さんのツイート](https://twitter.com/mootastic/status/1482914104549732357)より )
